@@ -57,9 +57,9 @@ public class AuthorDao extends BaseDao {
 		String readBook = "SELECT * FROM tbl_book WHERE bookId IN (SELECT bookId FROM tbl_book_authors WHERE authorId=?";
 		while(rs.next()){
 			Author author = new Author();
-			List<?> authorsInfo = Arrays.asList(author.getAuthorID());
 			author.setAuthorID(rs.getInt("authorId"));
 			author.setAuthorName(rs.getString("authorName"));
+			List<?> authorsInfo = Arrays.asList(author.getAuthorID());
 			author.setBooks(bookDao.readOnly(readBook,authorsInfo));
 			authors.add(author);
 		}
@@ -76,6 +76,11 @@ public class AuthorDao extends BaseDao {
 			authors.add(author);
 		}
 		return authors;
+	}
+	
+	@Override
+	protected <T> T extractSingleData(ResultSet rs) throws SQLException {
+		return null;
 	}
 	
 }

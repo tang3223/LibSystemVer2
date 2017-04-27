@@ -57,9 +57,9 @@ public class GenreDao extends BaseDao {
 		String readBook = "SELECT * FROM tbl_book WHERE bookId IN (SELECT bookId FROM tbl_book_genres WHERE genre_id=?";
 		while(rs.next()){
 			Genre genre = new Genre();
-			List<?> genreInfo = Arrays.asList(genre.getGenreId());
 			genre.setGenreId(rs.getInt("genre_id"));
 			genre.setGenreName(rs.getString("genre_name"));
+			List<?> genreInfo = Arrays.asList(genre.getGenreId());
 			genre.setBooks(bookDao.readOnly(readBook,genreInfo));
 			genres.add(genre);
 		}
@@ -76,6 +76,11 @@ public class GenreDao extends BaseDao {
 			genres.add(genre);
 		}
 		return genres;
+	}
+	
+	@Override
+	protected <T> T extractSingleData(ResultSet rs) throws SQLException {
+		return null;
 	}
 	
 }

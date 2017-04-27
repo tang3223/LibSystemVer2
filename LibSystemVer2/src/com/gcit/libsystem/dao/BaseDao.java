@@ -63,6 +63,20 @@ public abstract class BaseDao {
 		return extractDataReadOnly(rs);
 	}
 	
+	protected abstract <T> T extractSingleData(ResultSet rs) throws SQLException;
+	
+	protected <T> T readSingleOnly(String SQL, List<?> para) throws SQLException{
+		PreparedStatement pstmt = conn.prepareStatement(SQL);
+		if (!para.isEmpty()){
+			for (int i = 0; i < para.size(); i++){
+				pstmt.setObject(i, para.get(i));
+			}
+		}
+		ResultSet rs = pstmt.executeQuery();
+		return extractSingleData(rs);
+	}
+	
+	
 	
 	
 	
