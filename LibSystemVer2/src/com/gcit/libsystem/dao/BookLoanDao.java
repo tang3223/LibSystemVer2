@@ -3,7 +3,10 @@ package com.gcit.libsystem.dao;
 import java.sql.*;
 import java.util.*;
 
+import com.gcit.libsystem.entity.Book;
 import com.gcit.libsystem.entity.BookLoan;
+import com.gcit.libsystem.entity.Borrower;
+import com.gcit.libsystem.entity.Branch;
 
 public class BookLoanDao extends BaseDao {
 	
@@ -54,34 +57,28 @@ public class BookLoanDao extends BaseDao {
 		BorrowerDao borrowerDao = new BorrowerDao(conn);
 		BranchDao branchDao = new BranchDao(conn);
 		List<BookLoan> bookLoans = new ArrayList<>();
-		String readBook = "SELECT * FROM tbl_book JOIN tbl_publisher ON pubId=publisherId WHERE publisherId=?";
-		String readBranch = "";
-		String readBorrower = "";
+		String readBook = "SELECT * FROM tbl_book WHERE bookId=?";
+		String readBranch = "SELECT * FROM tbl_library_branch WHERE branchId=?";
+		String readBorrower = "SELECT * FROM tbl_borrower WHERE cardNo=?";
 		while(rs.next()){
-			Publisher publisher = new Publisher();
-			List<?> publisherInfo = Arrays.asList(publisher.getPublisherId());
-			publisher.setPublisherId(rs.getInt("publisherId"));
-			publisher.setPublisherName(rs.getString("publisherName"));
-			publisher.setPublisherAddress(rs.getString("publisherAddress"));
-			publisher.setPublisherPhone(rs.getString("publisherAddress"));
-			publisher.setBooks(bookDao.readOnly(readBook,publisherInfo));
-			publishers.add(publisher);
+			BookLoan bookLoan = new BookLoan();
+			List<?> bookInfo = Arrays.asList(rs.getInt("bookId")); 
+			List<?>	borrowerInfo = Arrays.asList(rs.getInt("cardNo"));	
+			List<?> branchInfo = Arrays.asList(rs.getInt("branchId"));
+			bookLoan.setBook((Book)bookDao.readOnly(readBook, bookInfo).get(0));
+			bookLoan.setBranch((Branch)borrowerDao.readOnly(readBranch, branchInfo).get(0));
+			bookLoan.setBorrower((Borrower)branchDao.readOnly(readBorrower, borrowerInfo).get(0));
+			bookLoan.setDateOut(rs.getDate("dateOut"));
+			bookLoan.setDueDate(rs.getDate("dueDate"));
+			bookLoan.setDateIn(rs.getDate("dateIn"));;
+			bookLoans.add(bookLoan);
 		}
-		return publishers;
+		return bookLoans;
 	}
 
 	@Override
-	public List<Publisher> extractDataReadOnly(ResultSet rs) throws SQLException {
-		List<Publisher> publishers = new ArrayList<>();
-		while(rs.next()){
-			Publisher publisher = new Publisher();
-			publisher.setPublisherId(rs.getInt("publisherId"));
-			publisher.setPublisherName(rs.getString("publisherName"));
-			publisher.setPublisherAddress(rs.getString("publisherAddress"));
-			publisher.setPublisherPhone(rs.getString("publisherAddress"));
-			publishers.add(publisher);
-		}
-		return publishers;
+	public List<BookLoan> extractDataReadOnly(ResultSet rs) throws SQLException {
+		return null;
 	}
 	
 	@Override

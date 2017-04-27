@@ -64,34 +64,21 @@ public class BorrowerDao extends BaseDao {
 
 	@Override
 	public List<Borrower> extractData(ResultSet rs) throws SQLException {
-		BookDao bookDao = new BookDao(conn);
-		List<Publisher> publishers = new ArrayList<>();
-		String readBook = "SELECT * FROM tbl_book JOIN tbl_publisher ON pubId=publisherId WHERE publisherId=?";
-		while(rs.next()){
-			Publisher publisher = new Publisher();
-			List<?> publisherInfo = Arrays.asList(publisher.getPublisherId());
-			publisher.setPublisherId(rs.getInt("publisherId"));
-			publisher.setPublisherName(rs.getString("publisherName"));
-			publisher.setPublisherAddress(rs.getString("publisherAddress"));
-			publisher.setPublisherPhone(rs.getString("publisherAddress"));
-			publisher.setBooks(bookDao.readOnly(readBook,publisherInfo));
-			publishers.add(publisher);
-		}
-		return publishers;
+		return null;
 	}
 
 	@Override
-	public List<Publisher> extractDataReadOnly(ResultSet rs) throws SQLException {
-		List<Publisher> publishers = new ArrayList<>();
+	public List<Borrower> extractDataReadOnly(ResultSet rs) throws SQLException {
+		List<Borrower> borrowers = new ArrayList<>();
 		while(rs.next()){
-			Publisher publisher = new Publisher();
-			publisher.setPublisherId(rs.getInt("publisherId"));
-			publisher.setPublisherName(rs.getString("publisherName"));
-			publisher.setPublisherAddress(rs.getString("publisherAddress"));
-			publisher.setPublisherPhone(rs.getString("publisherAddress"));
-			publishers.add(publisher);
+			Borrower borrower = new Borrower();
+			borrower.setBorrowerID(rs.getInt("cardNo"));
+			borrower.setBorrowerName(rs.getString("name"));
+			borrower.setBorrowerAddress(rs.getString("address"));
+			borrower.setBorrowerPhone(rs.getString("phone"));
+			borrowers.add(borrower);
 		}
-		return publishers;
+		return borrowers;
 	}
 	
 	@Override

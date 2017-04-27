@@ -10,7 +10,7 @@ public class Borrower implements Serializable{
 	private String  borrowerName;
 	private String  borrowerAddress;
 	private String  borrowerPhone;
-	private List<BookLoan> loans;
+//	private List<BookLoan> loans;
 	
 	public Integer getBorrowerID() {
 		return borrowerID;
@@ -36,13 +36,13 @@ public class Borrower implements Serializable{
 	public void setBorrowerPhone(String borrowerPhone) {
 		this.borrowerPhone = borrowerPhone;
 	}
-	public List<BookLoan> getLoans() {
-		return loans;
-	}
-	public void setLoans(List<BookLoan> loans) {
-		this.loans = loans;
-	}
-	
+//	public List<BookLoan> getLoans() {
+//		return loans;
+//	}
+//	public void setLoans(List<BookLoan> loans) {
+//		this.loans = loans;
+//	}
+//	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
