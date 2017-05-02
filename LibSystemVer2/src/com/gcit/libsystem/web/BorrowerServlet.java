@@ -2,8 +2,6 @@ package com.gcit.libsystem.web;
 
 import java.io.*;
 import java.sql.*;
-import java.text.*;
-import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -99,9 +97,9 @@ public class BorrowerServlet extends HttpServlet {
 	}
 
 	private void checkOutBook(HttpServletRequest request) {
-		Integer bookID = Integer.parseInt(request.getParameter("bookid"));
-		Integer branchID = Integer.parseInt(request.getParameter("branchid"));
-		Integer borrowerID = Integer.parseInt(request.getParameter("borrowerid"));
+		Integer bookID = Integer.parseInt(request.getParameter("bookId"));
+		Integer branchID = Integer.parseInt(request.getParameter("branchId"));
+		Integer borrowerID = Integer.parseInt(request.getParameter("borrowerId"));
 		BorrowerService service = new BorrowerService();
 		
 		try {

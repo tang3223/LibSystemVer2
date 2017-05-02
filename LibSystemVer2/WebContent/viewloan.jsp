@@ -45,7 +45,7 @@ ${message}
 			$('#tableAndPages').html(data)
 		})
 	}
-</script> --%>
+</script>  --%>
 <%	
 AdminService service = new AdminService();
 List<BookLoan> bookLoans = new ArrayList<>();
@@ -136,6 +136,9 @@ if (request.getAttribute("bookLoans") != null) {
                   <td><%=""%></td>
                   <% } %>                                                   
                   <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookLoanModel"
+				  <% if (bookLoan.getDateIn() != null){ %>
+					disabled
+				  <% } %>                  
 						href="editloan.jsp?bkId=<%=bookLoan.getBook().getBookId()%>&bhId=<%=bookLoan.getBranch().getBranchID()%>&brId=<%=bookLoan.getBorrower().getBorrowerID()%>">
 						Update</button></td>
                 </tr>

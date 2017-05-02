@@ -1,7 +1,6 @@
 package com.gcit.libsystem.entity;
 
 import java.io.Serializable;
-import java.util.*;
 
 public class Borrower implements Serializable{
 	
@@ -11,7 +10,7 @@ public class Borrower implements Serializable{
 	private String  borrowerAddress;
 	private String  borrowerPhone;
 //	private List<BookLoan> loans;
-	
+
 	public Integer getBorrowerID() {
 		return borrowerID;
 	}

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+	<link rel="icon" href="http://54.83.8.59/site/wp-content/uploads/2014/02/favicon.png">
     <title>GCIT Library System</title>
     <link href="./Jumbotron Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
     <link href="./Jumbotron Template for Bootstrap_files/jumbotron.css" rel="stylesheet">
@@ -69,7 +69,6 @@ $(document).ready(function()
     }) ;
 });
 </script>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

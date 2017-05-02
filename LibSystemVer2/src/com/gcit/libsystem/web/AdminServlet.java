@@ -270,6 +270,18 @@ public class AdminServlet extends HttpServlet {
 	private void updateBook(HttpServletRequest request) {
 		Book book = new Book();
 		AdminService service = new AdminService();
+		boolean noAuthor = false;
+		boolean noGenre  = false;
+		boolean noPub    = false;
+		if (request.getParameterValues("authorIDs")[0].equalsIgnoreCase("-1")){
+			noAuthor = true;
+		}
+		if (request.getParameter("publisherID").equalsIgnoreCase("-1")){
+			noPub = true;
+		}
+		if (request.getParameterValues("genreIDs")[0].equalsIgnoreCase("-1")){
+			noGenre = true;
+		}
 		book.setTitle(request.getParameter("bookName"));
 		book.setBookId(Integer.parseInt(request.getParameter("bookID")));
 		String[] authorIDs = request.getParameterValues("authorIDs");
@@ -281,14 +293,29 @@ public class AdminServlet extends HttpServlet {
 				Author author = service.readAuthor(Integer.parseInt(authorIDs[i]));
 				authors.add(author);
 			}
-			book.setAuthors(authors);
-			Publisher publisher = service.readPublisher(Integer.parseInt(request.getParameter("publisherID")));
-			book.setPublisher(publisher);
-			for (int i = 0; i < genreIDs.length; i++) {
-				Genre genre = service.readGenre(Integer.parseInt(genreIDs[i]));
-				genres.add(genre);
+			if (noAuthor){
+				book.setAuthors(service.readBook(book.getBookId()).getAuthors());
 			}
-			book.setGenres(genres);
+			else {
+				book.setAuthors(authors);
+			}
+			if (noPub){
+				book.setPublisher(service.readBook(book.getBookId()).getPublisher());
+			}
+			else {
+				Publisher publisher = service.readPublisher(Integer.parseInt(request.getParameter("publisherID")));
+				book.setPublisher(publisher);
+			}	
+			if (noGenre){
+				book.setGenres(service.readBook(book.getBookId()).getGenres());
+			}
+			else {
+				for (int i = 0; i < genreIDs.length; i++) {
+					Genre genre = service.readGenre(Integer.parseInt(genreIDs[i]));
+					genres.add(genre);
+				}
+				book.setGenres(genres);
+			}	
 			service.updateBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();

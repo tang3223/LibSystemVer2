@@ -1,7 +1,6 @@
 package com.gcit.libsystem.entity;
 
 import java.io.*;
-import java.util.List;
 import java.sql.Timestamp;
 
 public class BookLoan implements Serializable{

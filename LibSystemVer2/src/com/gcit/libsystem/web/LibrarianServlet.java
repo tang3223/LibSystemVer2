@@ -2,8 +2,6 @@ package com.gcit.libsystem.web;
 
 import java.io.*;
 import java.sql.*;
-import java.text.*;
-import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -70,20 +68,6 @@ public class LibrarianServlet extends HttpServlet {
 		rd.forward(request, response);		
 	}
 
-	private void updateBranch(HttpServletRequest request) {
-		Branch branch = new Branch();
-		branch.setBranchName(request.getParameter("branchName"));
-		branch.setBranchAddress(request.getParameter("branchAddress"));
-		branch.setBranchID(Integer.parseInt(request.getParameter("branchID")));
-		LibrarianService service = new LibrarianService();
-		try {
-			service.updateBranch(branch);
-			request.setAttribute("message", "Edit Successfull");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	private void addCopies(HttpServletRequest request){
 		Branch branch = new Branch();
 		LibrarianService service = new LibrarianService();
