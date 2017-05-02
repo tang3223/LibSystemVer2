@@ -53,6 +53,7 @@ ${message}
 	BorrowerService service = new BorrowerService();
 	Integer borrowerID = Integer.parseInt(request.getAttribute("borrowerId").toString());
 	List<BookLoan> bookLoans = service.readBookLoan(borrowerID);
+	Integer i = Integer.parseInt(request.getAttribute("num").toString());
 %>
 
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -127,10 +128,11 @@ ${message}
 				  <td><%=bookLoan.getBranch().getBranchName()%></td>
 				  <td><%=bookLoan.getBranch().getnoOfCopies(bookLoan.getBook().getBookId())%></td>
                   <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#returnBookModel"
-						href="confirmreturn.jsp?bookId=<%=bookLoan.getBook().getBookId()%>&branchId=<%=bookLoan.getBranch().getBranchID()%>&bwId=<%=borrowerID%>">
+						href="confirmreturn.jsp?bookId=<%=bookLoan.getBook().getBookId()%>&numID=<%=i%>&branchId=<%=bookLoan.getBranch().getBranchID()%>&bwId=<%=borrowerID%>">
 						Return</button></td>
                 </tr>
-               	<% } %>
+               	<%  
+               	} %>
               </tbody>        
 			 </table>
 		  </div>

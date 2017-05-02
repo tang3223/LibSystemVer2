@@ -18,7 +18,7 @@ import com.gcit.libsystem.service.BorrowerService;;
 public class BorrowerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1494340643033434525L;
-
+	Integer num = 0;
 	public BorrowerServlet() {
         super();
     }
@@ -51,6 +51,7 @@ public class BorrowerServlet extends HttpServlet {
 		case "/brselectbranch":		
 			if (request.getParameter("borrowerType") != null){
 				forwardPath = "/returnbook.jsp";
+				request.setAttribute("num", num);
 			}
 			else {
 				forwardPath = "/checkbook.jsp";
@@ -66,8 +67,10 @@ public class BorrowerServlet extends HttpServlet {
 			break;
 		case "/confirmreturnbook":
 			returnBook(request);
+			num+=1;
 			forwardPath = "/returnbook.jsp";
 			cardID = Integer.parseInt(request.getParameter("borrowerId"));
+			request.setAttribute("num", num);
 			break;
 		default:
 			break;

@@ -42,7 +42,7 @@
 				</select>
 			</div>
 			<hr>
-  				<input id="chkOrRtn" name="borrowerType" type="checkbox" data-toggle="toggle" data-width="100" data-on="Return" data-off="CheckOut">
+  				<input class="btn btn-primary toggle-on" id="chkOrRtn" name="borrowerType" type="checkbox" data-toggle="toggle" data-width="100" data-on="Return" data-off="CheckOut">
   			<script>
 			  $(function() {
 			    $('#chkOrRtn').bootstrapToggle();

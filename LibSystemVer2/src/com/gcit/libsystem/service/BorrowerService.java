@@ -135,7 +135,6 @@ public class BorrowerService {
 			conn = ConnectionUtil.getConnection();
 			BookLoanDao bldao = new BookLoanDao(conn);
 			BranchDao brdao = new BranchDao(conn);		
-			bldao.deleteBookLoan(bookID, branchID, borrowerID);
 			bldao.addBookLoan(bookID, branchID, borrowerID);
 			brdao.decNoOfCopies(brdao.readBranch(branchID),bookID);
 			conn.commit();
@@ -229,13 +228,13 @@ public class BorrowerService {
 		return null;
 	}
 	
-	public BookLoan readBookLoan(Integer borrowerID, Integer bookID, Integer branchID) throws SQLException{
+	public BookLoan readBookLoan(Integer borrowerID, Integer bookID, Integer branchID, Integer num) throws SQLException{
 		Connection conn = null;
 
 		try {
 			conn = ConnectionUtil.getConnection();
 			BookLoanDao bldao = new BookLoanDao(conn);
-			BookLoan bookLoan = bldao.readBookLoan(bookID, branchID, borrowerID);
+			BookLoan bookLoan = bldao.readBookLoan(bookID, branchID, borrowerID, num);
 			return bookLoan;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

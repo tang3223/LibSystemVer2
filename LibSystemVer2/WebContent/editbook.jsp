@@ -22,21 +22,21 @@
 			<input type="text" class="form-control" name="bookName" placeholder="<%=book.getTitle()%>">
 			<p>Select the author of your book:</p>
 			<select id="authorList" multiple="multiple" name="authorIDs" >
-				<option  value="-1">No Change</option>
+				<option  value="-1" selected>No Change</option>
 				<% for (int i = 0; i < authors.size(); i++) { %>
 				<option  value="<%=authors.get(i).getAuthorID()%>"><%=authors.get(i).getAuthorName()%></option>
 			    <% } %>
 			</select>
 			<p>Select the publisher of your book:</p>
 			<select id="publisherList" name="publisherID">
-				<option  value="-1">No Change</option>
+				<option  value="-1" selected>No Change</option>
 				<% for (int i = 0; i < publisher.size(); i++) { %>
 				<option value="<%=publisher.get(i).getPublisherId()%>"><%=publisher.get(i).getPublisherName()%></option>
 			    <% } %>
 			</select>
 			<p>Select the genre of your book:</p>
 			<select id="genreList" multiple="multiple" name="genreIDs">
-				<option  value="-1">No Change</option>
+				<option  value="-1" selected>No Change</option>
 				<% for (int i = 0; i < genres.size(); i++) { %>
 				<option value="<%=genres.get(i).getGenreId()%>"><%=genres.get(i).getGenreName()%></option>
 			    <% } %>

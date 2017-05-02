@@ -7,9 +7,10 @@
 	Integer borrowerID = Integer.parseInt(request.getParameter("bwId"));
 	Integer bookID = Integer.parseInt(request.getParameter("bookId"));
 	Integer branchID = Integer.parseInt(request.getParameter("branchId"));
+	Integer num = Integer.parseInt(request.getParameter("numID"));
 	Book book = service.readBook(bookID);
 	List<Branch> branchs = service.readAllBranchs();
-	BookLoan bookLoan = service.readBookLoan(borrowerID, bookID, branchID);
+	BookLoan bookLoan = service.readBookLoan(borrowerID, bookID, branchID,num);
 	String dayOut = bookLoan.getDateOut().toString();
 %>
 <script type="text/javascript" src="./Dashboard Template for Bootstrap_files/bootstrap-multiselect.js"></script>
@@ -22,15 +23,18 @@
       </div>
       <form action="confirmreturnbook" method="post">
 	      <div class="modal-body">
-			<p>Select the library branch you want to return:</p>
+	      <P> Are you sure you want to return this book? </P>
+<%-- 			<p>Select the library branch you want to return:</p>
 			<select id="branchList" name="branchId">
 				<% for (Branch branch : branchs) { %>
 				<option value="<%=branch.getBranchID()%>"><%=branch.getBranchName()%></option>
 			    <% } %>
-			</select>
+			</select> --%>
 			<input type="hidden" class="form-control" name="bookId" value="<%=bookID%>">
 			<input type="hidden" class="form-control" name="borrowerId" value="<%=borrowerID%>">
 			<input type="hidden" class="form-control" name="dayOut" value="<%=dayOut%>">
+			<input type="hidden" class="form-control" name="branchId" value="<%=branchID%>">
+			<input type="hidden" class="form-control" name="num" value="<%=num%>">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

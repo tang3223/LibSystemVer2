@@ -55,12 +55,12 @@ public class BookLoanDao extends BaseDao {
 		return read(readBookLoan, null);
 	}
 	
-	public BookLoan readBookLoan(Integer bookID, Integer branchID, Integer borrowerID) throws SQLException{
+	public BookLoan readBookLoan(Integer bookID, Integer branchID, Integer borrowerID, Integer num) throws SQLException{
 		String  readBookLoan  = "SELECT * FROM tbl_book_loans WHERE bookId=? AND branchId=? AND cardNo=?";
 		List<?> bookLoanInfo  = Arrays.asList(bookID, branchID, borrowerID);
 		List<BookLoan> bookLoan = read(readBookLoan, bookLoanInfo);
 		if(bookLoan!=null && !bookLoan.isEmpty()){
-			return bookLoan.get(0);
+			return bookLoan.get(num);
 		}
 		return null;
 	}

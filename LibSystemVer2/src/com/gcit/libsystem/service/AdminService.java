@@ -667,7 +667,7 @@ public class AdminService {
 		try {
 			conn = ConnectionUtil.getConnection();
 			BookLoanDao bldao = new BookLoanDao(conn);
-			return bldao.readBookLoan(bookID, branchID, borrowerID);
+			return bldao.readBookLoan(bookID, branchID, borrowerID,0);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} finally{
