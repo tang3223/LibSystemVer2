@@ -1,6 +1,7 @@
 <%@page import="java.util.*" %>
 <%@page import="com.gcit.libsystem.entity.Branch"%>
 <%@page import="com.gcit.libsystem.entity.Book"%>
+<%@page import="com.gcit.libsystem.entity.BookLoan"%>
 <%@page import="com.gcit.libsystem.service.BorrowerService"%>
 <%	BorrowerService service = new BorrowerService();
 	Integer borrowerID = Integer.parseInt(request.getParameter("bwId"));
@@ -8,6 +9,8 @@
 	Integer branchID = Integer.parseInt(request.getParameter("branchId"));
 	Book book = service.readBook(bookID);
 	List<Branch> branchs = service.readAllBranchs();
+	BookLoan bookLoan = service.readBookLoan(borrowerID, bookID, branchID);
+	String dayOut = bookLoan.getDateOut().toString();
 %>
 <script type="text/javascript" src="./Dashboard Template for Bootstrap_files/bootstrap-multiselect.js"></script>
 <link rel="stylesheet" href="./Dashboard Template for Bootstrap_files/bootstrap-multiselect.css" type="text/css"/>
@@ -26,7 +29,8 @@
 			    <% } %>
 			</select>
 			<input type="hidden" class="form-control" name="bookId" value="<%=bookID%>">
-			<input type="hidden" class="form-control" name="borrowerId" value="<%=borrowerID%>">						
+			<input type="hidden" class="form-control" name="borrowerId" value="<%=borrowerID%>">
+			<input type="hidden" class="form-control" name="dayOut" value="<%=dayOut%>">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

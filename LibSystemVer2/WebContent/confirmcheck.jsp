@@ -14,7 +14,7 @@
         <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Confirm Check Out Details</h4>
       </div>
-      <form action="confirmcheckbook" method="post">
+      <form action="confirmcheckbook" id="myForm" method="post">
 	      <div class="modal-body">
 			<p>Are you sure you want to check this book <%=book.getTitle()%> from <%=branch.getBranchName()%> ?</p>
 			<input type="hidden" class="form-control" name="bookId" value="<%=bookID%>">
@@ -23,9 +23,12 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="submit" class="btn btn-primary">Check Out</button>
+	        <button type="submit" class="btn btn-primary" >Check Out</button>
 	      </div>	      
       </form>
 </div>
-      
+  <script>
+
+</script>
+
       

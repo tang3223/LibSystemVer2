@@ -108,6 +108,7 @@ ${message}
                 <tr>
                   <th><h4><span class="label label-primary">#</span></h4></th>
                   <th><h4><span class="label label-primary">Book Title</span></h4></th>
+                  <th><h4><span class="label label-primary">Day Out</span></h4></th>
                   <th><h4><span class="label label-primary">Library Branch</span></h4></th>
                   <th><h4><span class="label label-primary">Num of Copies</span></h4></th>
                   <th><h4><span class="label label-primary">Return</span></h4></th>
@@ -122,9 +123,10 @@ ${message}
                 <tr>
                   <td><%=bookLoans.indexOf(bookLoan) + 1 %></td>
                   <td><%=bookLoan.getBook().getTitle()%></td>
+                  <td><%=bookLoan.getDateOut()%></td>
 				  <td><%=bookLoan.getBranch().getBranchName()%></td>
 				  <td><%=bookLoan.getBranch().getnoOfCopies(bookLoan.getBook().getBookId())%></td>
-                  <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkBookModel"
+                  <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#returnBookModel"
 						href="confirmreturn.jsp?bookId=<%=bookLoan.getBook().getBookId()%>&branchId=<%=bookLoan.getBranch().getBranchID()%>&bwId=<%=borrowerID%>">
 						Return</button></td>
                 </tr>
@@ -136,7 +138,7 @@ ${message}
       </div>
     </div>
 
-<div class="modal fade" id="checkBookModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="returnBookModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     </div>

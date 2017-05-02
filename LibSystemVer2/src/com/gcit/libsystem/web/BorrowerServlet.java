@@ -16,10 +16,9 @@ import com.gcit.libsystem.entity.*;
 import com.gcit.libsystem.service.BorrowerService;;
 
 
-@WebServlet({"/brselectbranch","/checkid","/confirmcheckbook","/confirmreturnbook"})
+@WebServlet({"/brselectbranch","/checkid","/confirmcheckbook","/confirmreturnbook","/checkAbility"})
 public class BorrowerServlet extends HttpServlet {
 
-	
 	private static final long serialVersionUID = 1494340643033434525L;
 
 	public BorrowerServlet() {
@@ -84,7 +83,7 @@ public class BorrowerServlet extends HttpServlet {
 	private String checkID(HttpServletRequest request) {
 		Integer cardID = Integer.parseInt(request.getParameter("cardID"));
 		BorrowerService service = new BorrowerService();
-		String passed = "<p>Welcome!</p>";
+		String passed = "<button type='submit' class='btn btn-primary'>Select</button>";
 		String failed = "<p>Invalid Card Number!</p>";
 		try {
 			if (!service.checkCardID(cardID)){
@@ -100,9 +99,9 @@ public class BorrowerServlet extends HttpServlet {
 	}
 
 	private void checkOutBook(HttpServletRequest request) {
-		Integer bookID = Integer.parseInt(request.getParameter("bookId"));
-		Integer branchID = Integer.parseInt(request.getParameter("branchId"));
-		Integer borrowerID = Integer.parseInt(request.getParameter("borrowerId"));
+		Integer bookID = Integer.parseInt(request.getParameter("bookid"));
+		Integer branchID = Integer.parseInt(request.getParameter("branchid"));
+		Integer borrowerID = Integer.parseInt(request.getParameter("borrowerid"));
 		BorrowerService service = new BorrowerService();
 		
 		try {
@@ -123,6 +122,7 @@ public class BorrowerServlet extends HttpServlet {
 		Integer bookID = Integer.parseInt(request.getParameter("bookId"));
 		Integer branchID = Integer.parseInt(request.getParameter("branchId"));
 		Integer borrowerID = Integer.parseInt(request.getParameter("borrowerId"));
+		String  dayOut = request.getParameter("dayOut");
 		BorrowerService service = new BorrowerService();
 		
 		try {
@@ -133,11 +133,12 @@ public class BorrowerServlet extends HttpServlet {
 			bookLoan.setBook(book);
 			bookLoan.setBorrower(borrower);
 			bookLoan.setBranch(branch);
-			service.returnBook(bookID,branchID,borrowerID);
+			service.returnBook(bookID,branchID,borrowerID,dayOut);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
 		
 }
 

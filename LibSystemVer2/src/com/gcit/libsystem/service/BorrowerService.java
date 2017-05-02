@@ -148,14 +148,32 @@ public class BorrowerService {
 		}
 	}
 	
-	public void returnBook(Integer bookID, Integer branchID, Integer borrowerID) throws SQLException{
+	public boolean checkDupBook(Integer bookID, Integer branchID, Integer borrowerID) throws SQLException{
+		Connection conn = null;
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			BookLoanDao bldao = new BookLoanDao(conn);
+			BranchDao brdao = new BranchDao(conn);		
+			return bldao.checkBookLoan(bookID, branchID, borrowerID);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally{
+			if(conn!=null){
+				conn.close();
+			}
+		}
+	}
+	
+	public void returnBook(Integer bookID, Integer branchID, Integer borrowerID, String dayOut) throws SQLException{
 		Connection conn = null;
 
 		try {
 			conn = ConnectionUtil.getConnection();
 			BookLoanDao bldao = new BookLoanDao(conn);
 			BranchDao brdao = new BranchDao(conn);	
-			bldao.returnBookLoanDate(bookID, branchID, borrowerID);
+			bldao.returnBookLoanDate(bookID, branchID, borrowerID, dayOut);
 			brdao.incNoOfCopies(brdao.readBranch(branchID),bookID);
 			conn.commit();
 		} catch (ClassNotFoundException | SQLException e) {
@@ -201,6 +219,24 @@ public class BorrowerService {
 				}		
 			}
 			return processed;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally{
+			if(conn!=null){
+				conn.close();
+			}
+		}
+		return null;
+	}
+	
+	public BookLoan readBookLoan(Integer borrowerID, Integer bookID, Integer branchID) throws SQLException{
+		Connection conn = null;
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			BookLoanDao bldao = new BookLoanDao(conn);
+			BookLoan bookLoan = bldao.readBookLoan(bookID, branchID, borrowerID);
+			return bookLoan;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} finally{

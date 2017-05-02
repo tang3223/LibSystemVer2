@@ -72,7 +72,7 @@ List<Book> books = branch.getBooks();
     <div class="container-fluid">
       <div class="row">        
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h2 class="header">Book List of <%=branch.getBranchName()%> in <%=branch.getBranchAddress() %></h2>          
+        <h2 class="header">Book List of <%=branch.getBranchName()%> at <%=branch.getBranchAddress() %></h2>          
 <!--           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
     			<input type="text" class="form-control" placeholder="Search for..." name="searchName" 

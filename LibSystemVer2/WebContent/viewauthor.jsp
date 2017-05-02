@@ -54,9 +54,9 @@
     <title>Author</title>
 
     <link href="./Dashboard Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
-
     <link href="./Dashboard Template for Bootstrap_files/dashboard.css" rel="stylesheet">
-
+	<link href="./Jumbotron Template for Bootstrap_files/bootstrap-toggle.min.css" rel="stylesheet">
+	<script src="./Jumbotron Template for Bootstrap_files/bootstrap-toggle.min.js"></script>
   </head>
 
   <body>

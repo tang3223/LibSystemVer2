@@ -17,7 +17,7 @@
       <form action="editbookloan" method="post">
 	      <div class="modal-body">
 			<p>Enter the new due date of your book loan:</p>
-			<input type="text" class="form-control" name="dueDate" id="dueDate" placeholder="mm-dd-yyyy">
+			<input type="text" class="form-control" onkeydown="return false" name="dueDate" id="dueDate" placeholder="mm-dd-yyyy">
 			<input type="hidden" class="form-control" name="bookID" value="<%=bookLoan.getBook().getBookId()%>">
 			<input type="hidden" class="form-control" name="branchID" value="<%=bookLoan.getBranch().getBranchID()%>">
 			<input type="hidden" class="form-control" name="borrowerID" value="<%=bookLoan.getBorrower().getBorrowerID()%>">				

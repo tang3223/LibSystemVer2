@@ -2,7 +2,7 @@ package com.gcit.libsystem.entity;
 
 import java.io.*;
 import java.util.List;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BookLoan implements Serializable{
 
@@ -10,9 +10,9 @@ public class BookLoan implements Serializable{
 	private Book book;
 	private Borrower borrower;
 	private Branch branch;
-	private Date dateOut;
-	private Date dueDate;
-	private Date dateIn;
+	private Timestamp dateOut;
+	private Timestamp dueDate;
+	private Timestamp dateIn;
 	
 	public Book getBook() {
 		return book;
@@ -32,22 +32,22 @@ public class BookLoan implements Serializable{
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-	public Date getDateOut() {
+	public Timestamp getDateOut() {
 		return dateOut;
 	}
-	public void setDateOut(Date dateOut) {
+	public void setDateOut(Timestamp dateOut) {
 		this.dateOut = dateOut;
 	}
-	public Date getDueDate() {
+	public Timestamp getDueDate() {
 		return dueDate;
 	}
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(Timestamp dueDate) {
 		this.dueDate = dueDate;
 	}
-	public Date getDateIn() {
+	public Timestamp getDateIn() {
 		return dateIn;
 	}
-	public void setDateIn(Date dateIn) {
+	public void setDateIn(Timestamp dateIn) {
 		this.dateIn = dateIn;
 	}
 	

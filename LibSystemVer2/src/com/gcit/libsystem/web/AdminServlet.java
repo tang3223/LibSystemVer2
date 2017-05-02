@@ -470,7 +470,7 @@ public class AdminServlet extends HttpServlet {
 			Borrower borrower = service.readBorrower(Integer.parseInt(request.getParameter("borrowerID")));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date date = sdf.parse(request.getParameter("dueDate"));
-			java.sql.Date dueDate = new java.sql.Date(date.getTime());
+			java.sql.Timestamp dueDate = new java.sql.Timestamp(date.getTime());
 			bookLoan.setBook(book);
 			bookLoan.setBranch(branch);
 			bookLoan.setBorrower(borrower);

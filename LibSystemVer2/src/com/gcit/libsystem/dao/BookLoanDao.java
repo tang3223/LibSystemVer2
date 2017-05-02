@@ -28,9 +28,19 @@ public class BookLoanDao extends BaseDao {
 		save(updateBookLoanDate, bookLoanInfo);
 	}
 	
-	public void returnBookLoanDate(Integer bookID, Integer branchID, Integer borrowerID) throws SQLException {
-		String  returnBookLoanDate = "UPDATE tbl_book_loans SET dateIn=NOW() WHERE bookId=? AND branchId=? AND cardNo=?";
-		List<?> bookLoanInfo = Arrays.asList(bookID, branchID, borrowerID);
+	public boolean checkBookLoan(Integer bookID, Integer branchID, Integer borrowerID) throws SQLException{
+		String  readBookLoan  = "SELECT * FROM tbl_book_loans WHERE bookId=? AND branchId=? AND cardNo=?";
+		List<?> bookLoanInfo  = Arrays.asList(bookID, branchID, borrowerID);
+		List<BookLoan> bookLoan = read(readBookLoan, bookLoanInfo);
+		if(bookLoan == null || bookLoan.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
+	public void returnBookLoanDate(Integer bookID, Integer branchID, Integer borrowerID, String dayOut) throws SQLException {
+		String  returnBookLoanDate = "UPDATE tbl_book_loans SET dateIn=NOW() WHERE bookId=? AND branchId=? AND cardNo=? AND dateOut=?";
+		List<?> bookLoanInfo = Arrays.asList(bookID, branchID, borrowerID, dayOut);
 		save(returnBookLoanDate, bookLoanInfo);
 	}
 	
@@ -82,9 +92,9 @@ public class BookLoanDao extends BaseDao {
 			bookLoan.setBook((Book)bookDao.readOnly(readBook, bookInfo).get(0));
 			bookLoan.setBranch((Branch)branchDao.readOnly(readBranch, branchInfo).get(0));
 			bookLoan.setBorrower((Borrower)borrowerDao.readOnly(readBorrower, borrowerInfo).get(0));
-			bookLoan.setDateOut(rs.getDate("dateOut"));
-			bookLoan.setDueDate(rs.getDate("dueDate"));
-			bookLoan.setDateIn(rs.getDate("dateIn"));;
+			bookLoan.setDateOut(rs.getTimestamp("dateOut"));
+			bookLoan.setDueDate(rs.getTimestamp("dueDate"));
+			bookLoan.setDateIn(rs.getTimestamp("dateIn"));;
 			bookLoans.add(bookLoan);
 		}
 		return bookLoans;
