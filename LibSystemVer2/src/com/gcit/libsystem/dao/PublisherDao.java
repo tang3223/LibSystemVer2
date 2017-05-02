@@ -12,8 +12,10 @@ public class PublisherDao extends BaseDao {
 	}
 	
 	public void addPublisher(Publisher publisher) throws SQLException {
-		String  addPublisher  = "INSERT INTO tbl_publisher (publisherName) VALUE (?)";
-		List<?> publisherInfo = Arrays.asList(publisher.getPublisherName());
+		String  addPublisher  = "INSERT INTO tbl_publisher "
+				+ "(publisherName, publisherAddress, publisherPhone) VALUE (?,?,?)";
+		List<?> publisherInfo = Arrays.asList(publisher.getPublisherName(),
+				publisher.getPublisherAddress(), publisher.getPublisherPhone());
 		save(addPublisher, publisherInfo);
 	}
 	
@@ -36,7 +38,7 @@ public class PublisherDao extends BaseDao {
 	}
 	
 	public void deletePublisher(Publisher publisher) throws SQLException{
-		String  deletePublisher = "DELETE * FROM tbl_publisher WHERE publisherId=?";
+		String  deletePublisher = "DELETE FROM tbl_publisher WHERE publisherId=?";
 		List<?> publisherInfo   = Arrays.asList(publisher.getPublisherId());
 		save(deletePublisher, publisherInfo);
 	}
@@ -73,7 +75,7 @@ public class PublisherDao extends BaseDao {
 			publisher.setPublisherId(rs.getInt("publisherId"));
 			publisher.setPublisherName(rs.getString("publisherName"));
 			publisher.setPublisherAddress(rs.getString("publisherAddress"));
-			publisher.setPublisherPhone(rs.getString("publisherAddress"));
+			publisher.setPublisherPhone(rs.getString("publisherPhone"));
 			publisher.setBooks(bookDao.readOnly(readBook,publisherInfo));
 			publishers.add(publisher);
 		}

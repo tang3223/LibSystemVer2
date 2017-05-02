@@ -12,8 +12,9 @@ public class BorrowerDao extends BaseDao {
 	}
 	
 	public void addBorrower(Borrower borrower) throws SQLException {
-		String  addBorrower  = "INSERT INTO tbl_borrower (name) VALUE (?)";
-		List<?> borrowerInfo = Arrays.asList(borrower.getBorrowerName());
+		String  addBorrower  = "INSERT INTO tbl_borrower (name, address, phone) VALUE (?,?,?)";
+		List<?> borrowerInfo = Arrays.asList(borrower.getBorrowerName(), 
+				borrower.getBorrowerAddress(), borrower.getBorrowerPhone());
 		save(addBorrower, borrowerInfo);
 	}
 	
@@ -36,20 +37,26 @@ public class BorrowerDao extends BaseDao {
 	}
 	
 	public void deleteBorrower(Borrower borrower) throws SQLException{
-		String  deleteBorrower = "DELETE * FROM tbl_borrower WHERE cardNo=?";
+		String  deleteBorrower = "DELETE FROM tbl_borrower WHERE cardNo=?";
 		List<?> borrowerInfo   = Arrays.asList(borrower.getBorrowerID());
 		save(deleteBorrower, borrowerInfo);
 	}
 	
+	public boolean checkBorrower(Integer borrowerID) throws SQLException{
+		String  readBorrower  = "SELECT * FROM tbl_borrower WHERE cardNo=?";
+		List<?> borrowerInfo  = Arrays.asList(borrowerID);
+		return check(readBorrower,borrowerInfo);
+	}
+	
 	public List<Borrower> readAllBorrower() throws SQLException{
 		String readBorrower = "SELECT * FROM tbl_borrower";
-		return read(readBorrower, null);
+		return readOnly(readBorrower, null);
 	}
 	
 	public Borrower readBorrower(Integer borrowerID) throws SQLException{
 		String  readBorrower  = "SELECT * FROM tbl_borrower WHERE cardNo=?";
 		List<?> borrowerInfo  = Arrays.asList(borrowerID);
-		List<Borrower> borrower = read(readBorrower, borrowerInfo);
+		List<Borrower> borrower = readOnly(readBorrower, borrowerInfo);
 		if(borrower!=null && !borrower.isEmpty()){
 			return borrower.get(0);
 		}
@@ -59,7 +66,7 @@ public class BorrowerDao extends BaseDao {
 	public List<Borrower> readBorrower(String borrowerName) throws SQLException{
 		String  readBorrower = "SELECT * FROM tbl_publisher WHERE publisherName LIKE ?";
 		List<?> borrowerInfo = Arrays.asList(borrowerName);
-		return read(readBorrower,borrowerInfo);
+		return readOnly(readBorrower,borrowerInfo);
 	}
 
 	@Override

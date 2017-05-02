@@ -19,12 +19,12 @@ public class GenreDao extends BaseDao {
 	
 	public void updateGenre(Genre genre) throws SQLException{
 		String  updateGenre = "UPDATE tbl_genre SET genre_name=? WHERE genre_id=?";
-		List<?> genreInfo   = Arrays.asList(genre.getGenreId());
+		List<?> genreInfo   = Arrays.asList(genre.getGenreName(), genre.getGenreId());
 		save(updateGenre, genreInfo);
 	}
 	
 	public void deleteGenre(Genre genre) throws SQLException{
-		String  deleteGenre = "DELETE * FROM tbl_genre WHERE genre_name=?";
+		String  deleteGenre = "DELETE FROM tbl_genre WHERE genre_id=?";
 		List<?> genreInfo   = Arrays.asList(genre.getGenreId());
 		save(deleteGenre, genreInfo);
 	}
@@ -54,7 +54,7 @@ public class GenreDao extends BaseDao {
 	public List<Genre> extractData(ResultSet rs) throws SQLException {
 		BookDao bookDao = new BookDao(conn);
 		List<Genre> genres = new ArrayList<>();
-		String readBook = "SELECT * FROM tbl_book WHERE bookId IN (SELECT bookId FROM tbl_book_genres WHERE genre_id=?";
+		String readBook = "SELECT * FROM tbl_book WHERE bookId IN (SELECT bookId FROM tbl_book_genres WHERE genre_id=?)";
 		while(rs.next()){
 			Genre genre = new Genre();
 			genre.setGenreId(rs.getInt("genre_id"));

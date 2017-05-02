@@ -11,7 +11,7 @@ public class Branch implements Serializable{
 	private String branchName;
 	private String branchAddress;
 	private List<Book> books;
-	private HashMap<Book,Integer> noOfCopies = new HashMap<>();
+	private HashMap<Integer, Integer> noOfCopies = new HashMap<>();
 	
 	public Integer getBranchID() {
 		return branchID;
@@ -37,14 +37,14 @@ public class Branch implements Serializable{
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
-	public Integer getnoOfCopies(Book book) {
-		if (noOfCopies.containsKey(book)){
-			return noOfCopies.get(book);
+	public Integer getnoOfCopies(Integer bookID) {
+		if (noOfCopies.containsKey(bookID)){
+			return noOfCopies.get(bookID);
 		}
 		return null;
 	}
-	public void setnoOfCopies(Book book, Integer copy) {
-			noOfCopies.put(book, copy);
+	public void setnoOfCopies(Integer bookID, Integer copy) {
+			noOfCopies.put(bookID, copy);
 	}
 	
 	@Override

@@ -19,17 +19,20 @@ public class AuthorDao extends BaseDao {
 	
 	public void updateAuthor(Author author) throws SQLException{
 		String  updateAuthor = "UPDATE tbl_author SET authorName=? WHERE authorId=?";
-		List<?> authorsInfo  = Arrays.asList(author.getAuthorID());
+		List<?> authorsInfo  = Arrays.asList(author.getAuthorName(),author.getAuthorID());
 		save(updateAuthor, authorsInfo);
 	}
 	
 	public void deleteAuthor(Author author) throws SQLException{
-		String  deleteAuthor = "DELETE * FROM tbl_author WHERE authorId=?";
+		String  deleteAuthor = "DELETE FROM tbl_author WHERE authorId=?";
 		List<?> authorsInfo  = Arrays.asList(author.getAuthorID());
 		save(deleteAuthor, authorsInfo);
 	}
 	
-	public List<Author> readAllAuthors() throws SQLException{
+	public List<Author> readAllAuthors(Integer pageNum) throws SQLException{	
+		if (pageNum != null) {
+			setPageNum(pageNum);
+		}
 		String readAuthor = "SELECT * FROM tbl_author";
 		return read(readAuthor, null);
 	}
@@ -44,17 +47,31 @@ public class AuthorDao extends BaseDao {
 		return null;
 	}
 	
-	public List<Author> readAuthor(String authorName) throws SQLException{
+	public List<Author> readAuthor(Integer pageNum, String authorName) throws SQLException{
 		String  readAuthor  = "SELECT * FROM tbl_author WHERE authorName LIKE ?";
+		List<?> authorsInfo = Arrays.asList("%" + authorName + "%");
+		if (pageNum != null) {
+			setPageNum(pageNum);
+		}
+		return read(readAuthor, authorsInfo);
+	}
+	
+	public List<Author> readAuthor(String authorName) throws SQLException{
+		String  readAuthor  = "SELECT * FROM tbl_author WHERE authorName=?";
 		List<?> authorsInfo = Arrays.asList(authorName);
-		return read(readAuthor,authorsInfo);
+		return read(readAuthor, authorsInfo);
+	}
+	
+	public Integer countAuthors() throws SQLException{
+		String readAuthor = "SELECT COUNT(*) as 'count_author' FROM tbl_author";
+		return readSingleOnly(readAuthor, null);
 	}
 
 	@Override
 	public List<Author> extractData(ResultSet rs) throws SQLException {
 		BookDao bookDao = new BookDao(conn);
 		List<Author> authors = new ArrayList<>();
-		String readBook = "SELECT * FROM tbl_book WHERE bookId IN (SELECT bookId FROM tbl_book_authors WHERE authorId=?";
+		String readBook = "SELECT * FROM tbl_book WHERE bookId IN (SELECT bookId FROM tbl_book_authors WHERE authorId=?)";
 		while(rs.next()){
 			Author author = new Author();
 			author.setAuthorID(rs.getInt("authorId"));
@@ -79,8 +96,10 @@ public class AuthorDao extends BaseDao {
 	}
 	
 	@Override
-	protected <T> T extractSingleData(ResultSet rs) throws SQLException {
+	protected Integer extractSingleData(ResultSet rs) throws SQLException {
+		while (rs.next()){
+			return rs.getInt("count_author");
+		}
 		return null;
 	}
-	
 }

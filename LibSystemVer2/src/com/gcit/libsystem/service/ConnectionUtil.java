@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 	public static String driver = "com.mysql.jdbc.Driver";
-	public static String url = "jdbc:mysql://localhost/library";
+	public static String url = "jdbc:mysql://localhost/library?verifyServerCertificate=false&useSSL=true";
 	public static String username = "root";
 	public static String password = "root";
 	
