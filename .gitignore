@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings
+build/
 
 # Windows image file caches
 Thumbs.db
